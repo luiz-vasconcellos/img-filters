@@ -1,4 +1,7 @@
 *.o
+*.out
 *.pgm
 pgmnega
 *.swp
+*.ghc
+teste.c
