@@ -3,5 +3,5 @@
 *.pgm
 pgmnega
 *.swp
-*.ghc
+*.gch
 teste.c
