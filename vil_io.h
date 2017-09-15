@@ -6,7 +6,7 @@
 
 #include "vil_data.h"
 
-int read_file (char *file_name, image_t *img);
+image_t* read_file (char *file_name);
 int write_file(char *file_name, image_t *img);
 
 #endif 
