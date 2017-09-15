@@ -6,6 +6,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 image_t* read_file (char* file_name) {
     FILE *img_file = fopen(file_name, "r");
@@ -41,9 +42,25 @@ image_t* read_file (char* file_name) {
         }
     }
 
-    for(int i=0; i < img->row; ++i) 
-        for(int j=0; j < img->col; ++j) 
-            fscanf(img_file,"%i", &img->pixels[i][j]);
+    if(!strcmp(format, "P2")) {
+        img->format = PGM2;
+
+        for(int i=0; i < img->row; ++i) 
+            for(int j=0; j < img->col; ++j) 
+                fscanf(img_file,"%i", &img->pixels[i][j]);
+    } else if (!strcmp(format,"P5")) {
+        printf("P5\n");
+        img->format = PGM5;
+        int sz = (img->max < 256) ? 1 : 2;
+        for(int i=0; i < img->row; ++i)
+          for(int j=0; j < img->col; ++j)
+              fread(&img->pixels[i][j], sz, 1, img_file);
+    } else {
+      fprintf(stderr,"Formato de arquivo invalido.\n");
+      fclose(img_file);
+      return NULL;
+    }
+
 
     fclose(img_file);
     return img;
@@ -56,12 +73,21 @@ int write_file (char* file_name, image_t *img) {
         return -1;
     }
 
-    fprintf(img_file,"P2\n%i %i\n%i\n", img->col, img->row, img->max);
+    if(img->format == PGM2) {
+        fprintf(img_file,"P2\n%i %i\n%i\n", img->col, img->row, img->max);
 
-    for(int i = 0; i < img->row; ++i) {
-        for(int j = 0; j < img->col; ++j)
-            fprintf(img_file,"%i ", img->pixels[i][j]);
-        fprintf(img_file,"\n");
+        for(int i = 0; i < img->row; ++i) {
+            for(int j = 0; j < img->col; ++j)
+               fprintf(img_file,"%i ", img->pixels[i][j]);
+            fprintf(img_file,"\n");
+        }
+    } else if (img->format == PGM5) {
+        fprintf(img_file,"P5\n%i %i\n%i\n", img->col, img->row, img->max);
+        int sz = (img->max < 256) ? 1 : 2;
+
+        for(int i = 0; i < img->row; ++i) 
+            for(int j=0; j < img->col; ++j) 
+                fwrite(&img->pixels[i][j], sz, 1, img_file); 
     }
 
     fclose(img_file);
