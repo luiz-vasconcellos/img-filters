@@ -33,15 +33,6 @@ int read_args (int nargs, char *args[], char **ipt, char **out) {
             return -1;
         }
     }
-    
-    if(!ipt) {
-        fprintf(stderr, "Argumento -i obrigatorio, com arquivo de entrada.\n");
-        return -1;
-    }
-    if(!out) {
-        fprintf(stderr, "Argumento -o obrigatorio, com arquivo de saida.\n");
-        return -1;
-    }
 
     return 0;
 }
@@ -80,15 +71,6 @@ int read_args_numeric (int nargs, char *args[], char **ipt, char **out, float *l
             fprintf(stderr, "Argumento invalido: %s \n", args[i]);
             return -1;
         }
-    }
-
-    if(!ipt) {
-        fprintf(stderr, "Argumento -i obrigatorio, com arquivo de entrada.\n");
-        return -1;
-    }
-    if(!out) {
-        fprintf(stderr, "Argumento -o obrigatorio, com arquivo de saida.\n");
-        return -1;
     }
 
     // Normalizing limiar argument

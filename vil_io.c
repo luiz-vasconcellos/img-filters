@@ -10,7 +10,7 @@
 
 image_t* read_file (char* file_name) {
     // Open file and check the operation result
-    FILE *img_file = fopen(file_name, "r");
+    FILE *img_file = (file_name) ? fopen(file_name, "r") : stdin;
     if(!img_file) {
         fprintf(stderr, "Falha ao abrir arquivo %s\n",file_name);
         return NULL;
@@ -72,7 +72,7 @@ image_t* read_file (char* file_name) {
 
 int write_file (char* file_name, image_t *img) {
     // Open file to write and check the operation result
-    FILE *img_file = fopen(file_name,"w");
+    FILE *img_file = (file_name) ? fopen(file_name,"w") : stdout;
     if(!img_file) {
         fprintf(stderr,"Falha ao abrir arquivo %s\n",file_name);
         return -1;
