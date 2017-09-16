@@ -12,5 +12,6 @@ image_t* alloc_img(image_t *img);
 void img_nega(image_t *img);
 void img_rotate(image_t *img);
 void img_lim(image_t *img, float lim);
+void img_median(image_t *img);
 
 #endif 
