@@ -10,5 +10,15 @@
 
 int main(int argc, char *argv[]) {
     char *ipt = NULL, *out = NULL;
+    read_args(argc, argv, &ipt, &out);
+
+    image_t *img = read_file(ipt);
+    img_nega(img);
+    write_file(out, img);
+
+    free_img(img);
+    free(ipt);
+    free(out);
+
     return 0;
 }
