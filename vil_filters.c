@@ -58,3 +58,10 @@ void img_rotate(image_t* img) {
 
     free_img(tmp);
 }
+
+void img_lim(image_t* img, float lim) {
+    float max = img->max * lim;
+    for(int i = 0; i < img->row; ++i)
+        for(int j = 0; j < img->col; ++j)
+            img->pixels[i][j] = (img->pixels[i][j] > max) ? img->max : 0;
+}
