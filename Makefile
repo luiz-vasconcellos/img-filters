@@ -1,14 +1,35 @@
-nega:
-	gcc -Wall pgmnega.c vil_data.h vil_io.c vil_args.c vil_filters.c -o pgmnega
+# Luiz Fernando Azevedo Vasconcellos
+# lfav17@inf.ufpr.br
 
-rot:
-	gcc -Wall pgmrotaciona.c vil_data.h vil_io.c vil_args.c vil_filters.c -o pgmrotacao
+CC=gcc
+CFLAGS=-Wall
 
-lim:
-	gcc -Wall pgmlimiar.c vil_data.h vil_io.c vil_args.c vil_filters.c -o pgmlimiar
+all: nega rot lim median
 
-median:
-	gcc -Wall pgmmediana.c vil_data.h vil_io.c vil_args.c vil_filters.c -o pgmmediana
+nega: pgmnega.o vil_io.o vil_args.o vil_filters.o
+	$(CC) pgmnega.o vil_io.o vil_args.o vil_filters.o $(CFLAGS) -o pgmnega
 
-teste:	
-	gcc -Wall teste.c vil_data.h vil_io.c vil_args.c
+rot: pgmrotaciona.o vil_io.o vil_args.o vil_filters.o
+	$(CC) pgmrotaciona.o  vil_io.o vil_args.o vil_filters.o $(CFLAGS) -o pgmrotacao
+
+lim: pgmlimiar.o vil_io.o vil_args.o vil_filters.o
+	$(CC) pgmlimiar.o  vil_io.o vil_args.o vil_filters.o $(CFLAGS) -o pgmlimiar
+
+median: pgmmediana.o vil_io.o vil_args.o vil_filters.o
+	$(CC) pgmmediana.o  vil_io.o vil_args.o vil_filters.o $(CFLGAS) -o pgmmediana
+
+vil_io.o: vil_io.c vil_io.h 
+	$(CC) -c vil_io.c  $(CFLAGS)
+
+vil_args.o: vil_args.c vil_args.h 
+	$(CC) -c vil_args.c  $(CFLAGS)
+
+vil_filters.o: vil_filters.c vil_filters.h 
+	$(CC) -c vil_filters.c  $(CFLAGS)
+
+clean:
+	-rm *.o
+	-rm *.gch
+
+purge: clean
+	-rm pgmnega pgmrotacao pgmlimiar pgmmediana
