@@ -45,3 +45,16 @@ void img_nega(image_t* img) {
         for(int j = 0; j < img->col; ++j)
             img->pixels[i][j] = img->max - img->pixels[i][j];
 }
+
+void img_rotate(image_t* img) {
+    image_t *tmp = alloc_img(img);
+    for(int i = 0; i < img->row; ++i)
+        for(int j = 0; j < img->col; ++j)
+            tmp->pixels[i][j] = img->pixels[j][i];
+
+    for(int i = 0; i < img->row; ++i)
+        for(int j = 0; j < img->col; ++j)
+            img->pixels[i][img->col - 1 - j] = tmp->pixels[i][j];
+
+    free_img(tmp);
+}

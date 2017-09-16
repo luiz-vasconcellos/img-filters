@@ -10,5 +10,6 @@ void free_img(image_t *img);
 image_t* alloc_img(image_t *img);
 
 void img_nega(image_t *img);
+void img_rotate(image_t *img);
 
 #endif 

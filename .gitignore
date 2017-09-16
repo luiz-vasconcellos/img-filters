@@ -1,7 +1,8 @@
 *.o
 *.out
 *.pgm
-pgmnega
 *.swp
 *.gch
 teste.c
+pgmnega
+pgmrotacao
