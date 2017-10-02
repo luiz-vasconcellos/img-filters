@@ -1,8 +1,7 @@
 // Luiz Fernando Azevedo Vasconcellos
 // lfav17@inf.ufpr.br
 
-#include "vil_filters.h"
-#include "vil_data.h"
+#include <vil_filters.h>
 #include <stdlib.h>
 #include <stdio.h>
 

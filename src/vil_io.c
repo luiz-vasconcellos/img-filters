@@ -1,9 +1,7 @@
 // Luiz Fernando Azevedo Vasconcellos
 // lfav17@inf.ufpr.br
 
-#include "vil_io.h"
-#include "vil_data.h"
-
+#include <vil_io.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

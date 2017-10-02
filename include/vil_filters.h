@@ -4,7 +4,7 @@
 #ifndef VIL_FILTERS_H
 #define VIL_FILTERS_H
 
-#include "vil_data.h"
+#include <vil_data.h>
 
 void free_img(image_t *img);
 image_t* alloc_img(image_t *img);
