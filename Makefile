@@ -13,11 +13,11 @@ FILTERS = pgmnega pgmrotacao pgmlimiar pgmmediana
 
 all: $(FILTERS)
 
-$(FILTERS): $(addsuffix .c, $(FILTERS)) $(OBJS)
-	$(CC) $(CFLAGS) $(INCL) $< $(OBJS) -o bin/$@
+$(FILTERS): $@ $(OBJS)
+	$(CC) $(CFLAGS) $(INCL) $@.c $(OBJS) -o bin/$@
 
 %.o : $(SRCDIR)/%.c $(INCLUDEDIR)/vil_data.h
-	$(CC) $(INCL) $(CFLAGS) -c $<
+	$(CC) $(INCL) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -f *.o *.gch
