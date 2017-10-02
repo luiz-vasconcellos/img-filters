@@ -16,14 +16,16 @@ void free_img(image_t *img) {
     free(img);
 }
 
-image_t* alloc_img(image_t *img) {
-    image_t *tmp = calloc(1, sizeof(*tmp));
+image_t* alloc_img(int width, int height) {
+    image_t *tmp = calloc(1, sizeof(image_t *));
+    if(tmp == NULL)
+        return NULL;
     
-    // Copy the "header" info
-    tmp->format = img->format;
-    tmp->max = img->max;
-    tmp->row = img->row;
-    tmp->col = img->col;
+    tmp->format = PGMDC;
+    tmp->max = 0;
+    
+    tmp->row = height;
+    tmp->col = width;
 
     // Allocate array of rows and free in case of errors
     tmp->pixels = calloc(tmp->row, sizeof(*tmp->pixels));
@@ -57,11 +59,20 @@ void img_nega(image_t* img) {
 void img_rotate(image_t* img) {
     // 90 degress clockwise is the same as 270 anti-clockwise
     // Copy the image with 90 a.c rotation
-    image_t *tmp = alloc_img(img);
-    for(int i = 0; i < img->row; ++i)
+    image_t *tmp = alloc_img(img->row, img->col);
+    for(int i = 0; i < img->row; ++i) {
         for(int j = 0; j < img->col; ++j)
-            tmp->pixels[i][j] = img->pixels[j][i];
+            tmp->pixels[j][i] = img->pixels[i][j];
+        free(img->pixels[i]);
+    }
+    free(img->pixels);
+    img->pixels = malloc(tmp->row * sizeof(*img->pixels));    
+    for(int i = 0; i < tmp->row; ++i)
+        img->pixels[i] = malloc(tmp->col * sizeof(**img->pixels));
 
+    img->row = tmp->row;
+    img->col = tmp->col;
+    
     // Rotate more 180 a.c degrees
     for(int i = 0; i < img->row; ++i)
         for(int j = 0; j < img->col; ++j)
